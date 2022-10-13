@@ -29,19 +29,22 @@ class CreateUserViewController: UIViewController {
     @IBAction func createUserPressed() {
 
         guard let userName = userNameTextField.text, userName.isEmail else {
-            presentError(title: "Error!", text: "Invalid Username!")
+            presentAlert(title: "Error!", text: "Invalid Username!")
             return
         }
         
         guard let password = passwordTextField.text, password.isValidPassword else {
-            presentError(title: "Error!", text: "Invalid Password!")
+            presentAlert(title: "Error!", text: "Invalid Password!")
             return
         }
         
-        guard let repeatPassword = repeatPasswordTextField.text, password != repeatPassword else {
-            presentError(title: "Error!", text: "Password confirmation wrong!")
+        guard let repeatPassword = repeatPasswordTextField.text, password == repeatPassword else {
+            presentAlert(title: "Error!", text: "Password confirmation wrong!")
             return
         }
+        
+        presentAlert(title: "Success!!!", text: "")
+
     }
     
     @objc func dismissKeyboard () {
@@ -59,14 +62,14 @@ extension String {
     }
     
     var isValidPassword: Bool {
-        let predicate = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9]).{6}$")
-        return predicate.evaluate(with: self)
+        let passwordRegex = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*()\\-_=+{}|?>.<,:;~`’]{6,}$"
+        return NSPredicate(format: "SELF MATCHES %@", passwordRegex).evaluate(with: self)
     }
     
 }
 
 extension UIViewController {
-    func presentError(title: String, text: String) {
+    func presentAlert(title: String, text: String) {
         let alert = UIAlertController(title: title,
                                       message: text,
                                       preferredStyle: .alert)
