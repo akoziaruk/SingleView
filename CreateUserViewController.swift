@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CreateUserViewController: UIViewController {
+class CreateUserViewController: UIViewController, UITextFieldDelegate {
 
     //MARK - Outlets
     
@@ -48,34 +48,11 @@ class CreateUserViewController: UIViewController {
     }
     
     @objc func dismissKeyboard () {
-        userNameTextField.resignFirstResponder()
-        passwordTextField.resignFirstResponder()
-        repeatPasswordTextField.resignFirstResponder()
+        view.endEditing(true)
     }
     
-}
-
-extension String {
-    
-    var isEmail: Bool {
-        self.contains("@") && hasSuffix(".com")
-    }
-    
-    var isValidPassword: Bool {
-        let passwordRegex = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*()\\-_=+{}|?>.<,:;~`’]{6,}$"
-        return NSPredicate(format: "SELF MATCHES %@", passwordRegex).evaluate(with: self)
-    }
-    
-}
-
-extension UIViewController {
-    func presentAlert(title: String, text: String) {
-        let alert = UIAlertController(title: title,
-                                      message: text,
-                                      preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "Ok", style: .default))
-        
-        present(alert, animated: true)
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view.endEditing(true)
+        return false
     }
 }
