@@ -29,21 +29,21 @@ class CreateUserViewController: UIViewController, UITextFieldDelegate {
     @IBAction func createUserPressed() {
 
         guard let userName = userNameTextField.text, userName.isValidEmail else {
-            presentAlert(title: "Error!", text: "Invalid Username!")
+            present(alert: InvalidEmailAlert())
             return
         }
         
         guard let password = passwordTextField.text, password.isValidPassword else {
-            presentAlert(title: "Error!", text: "Invalid Password!")
+            present(alert: InvalidPasswordAlert())
             return
         }
         
         guard let repeatPassword = repeatPasswordTextField.text, password == repeatPassword else {
-            presentAlert(title: "Error!", text: "Password confirmation wrong!")
+            present(alert: InvalidRepeatPasswordAlert())
             return
         }
         
-        presentAlert(title: "Success!!!", text: "")
+        present(alert: SuccessAlert())
 
     }
     
@@ -57,4 +57,5 @@ class CreateUserViewController: UIViewController, UITextFieldDelegate {
         view.endEditing(true)
         return false
     }
+
 }
