@@ -28,7 +28,7 @@ class CreateUserViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func createUserPressed() {
 
-        guard let userName = userNameTextField.text, userName.isEmail else {
+        guard let userName = userNameTextField.text, userName.isValidEmail else {
             presentAlert(title: "Error!", text: "Invalid Username!")
             return
         }
@@ -47,10 +47,12 @@ class CreateUserViewController: UIViewController, UITextFieldDelegate {
 
     }
     
-    @objc func dismissKeyboard () {
+    @objc func dismissKeyboard() {
         view.endEditing(true)
     }
     
+    //MARK - UITextFieldDelegate
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         view.endEditing(true)
         return false

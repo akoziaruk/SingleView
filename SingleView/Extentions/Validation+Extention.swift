@@ -9,7 +9,7 @@ import Foundation
 
 extension String {
     
-    var isEmail: Bool {
+    var isValidEmail: Bool {
         self.contains("@") && hasSuffix(".com")
     }
     

@@ -8,13 +8,11 @@
 import UIKit
 
 extension UIViewController {
+    
     func presentAlert(title: String, text: String) {
-        let alert = UIAlertController(title: title,
-                                      message: text,
-                                      preferredStyle: .alert)
-        
+        let alert = UIAlertController(title: title, message: text, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default))
-        
         present(alert, animated: true)
     }
+    
 }
